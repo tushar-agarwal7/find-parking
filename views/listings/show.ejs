@@ -1,0 +1,110 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+    /* Style for the "Book Now" button */
+    .book-now-btn {
+        background-color: #007bff; /* Blue background color */
+        color: #fff; /* White text color */
+        border: none; /* No border */
+        border-radius: 16px; /* Rounded corners */
+        padding: 10px 20px; /* Padding */
+        font-size: 18px; /* Font size */
+        transition: background-color 0.3s ease; /* Smooth transition on hover */
+    }
+
+    /* Style for the "Book Now" button on hover */
+    .book-now-btn:hover {
+        background-color: #0056b3; /* Darker blue background color on hover */
+        text-decoration: none; /* Remove underline on hover */
+    }
+
+    /* Additional styling for the row containing the "Book Now" button */
+    .book-now-row {
+        margin-top: 20px; /* Add some space above the button */
+    }
+</style>
+
+<div class="row mt-4">
+    <div class="col-8 offset-3">
+        <h3><%= blog.title  %></h3>
+        <h6  class="card-title"> (<%= blog.location  %>)</h6>
+    </div>
+    <div class="card  blog-card col-6 offset-3">
+        <img src="<%= blog.image.url  %>" class="card-img-top mt-3 mb-2" alt="blogimage"  style="height: 20rem;">
+        <div class="card-body">
+          <p class="card-text"> Owned  by:- <i>  <%= blog.owner.username %>(Contact<%= blog.contact  %>)</i></p>
+          <p class="card-text"><%= blog.description  %></p>
+          
+        </div>
+      </div>
+      <% if( curuser && curuser._id.equals(blog.owner._id)){ %>
+      <div class="btns">
+      <a href="/home/<%= blog._id %>/edit" class="btn btn-primary offset-3 col-1 edit-btn">Edit</a>
+      <form action="/home/<%= blog._id %>?_method=DELETE" method="post">
+        <button class=" btn btn-primary offset-3">Delete</button>
+      </form>
+      </div>
+
+<% } %>
+<!-- Add the "Book Now" button here -->
+<div class="row book-now-row mt-3">
+  <a href="/home/<%= blog._id %>/book" class="btn btn-primary offset-3 col-3 book-now-btn">Book </a>
+
+</div>
+
+<div class="row mt-3">
+    <% if(curuser){ %>
+<div class="col-10 offset-1">
+<h3>Give Reviews</h3>
+<form action="/home/<%= blog._id  %>/reviews" method="post" novalidate class="needs-validation">
+    <div class="mb-3 mt-3">
+        <label for="rating" class="form-label"> Rating</label>
+      <fieldset class="starability-heartbeat">
+        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+        <label for="first-rate1" title="Terrible">1 star</label>
+        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+        <label for="first-rate2" title="Not good">2 stars</label>
+        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+        <label for="first-rate3" title="Average">3 stars</label>
+        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+        <label for="first-rate4" title="Very good">4 stars</label>
+        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+        <label for="first-rate5" title="Amazing">5 stars</label>
+      </fieldset>
+      </div>
+        <label for="comment" class="form-label">Comments</label>
+        <textarea name="review[comment]" id="comment" cols="30" rows="10" class="form-control" required></textarea>
+        <div class="invalid-feedback">Please add some comments for review</div>
+      
+<button class="btn btn-dark mt-3">Add</button>
+</form>
+</div>
+</div>
+<% } %>
+<% if(blog.reviews.length>0) {%>
+    <h3 class="mt-5">All Reviews</h3> 
+    <div class="row mt-4">
+        <% for(let review of blog.reviews) {%>
+            <div class="card col-12 review-comment">
+                <div class="card-body review-comment">
+                    <h5 class="card-title">@<%= review.author.username %></h5>
+                    <pre class="starability-result card-text" data-rating="<%= review.rating %>"></pre>
+                      <pre class="card-text"><%= review.comment %></pre>
+                </div>
+                <% if(curuser && curuser._id.equals(review.author._id)){ %>
+                <form action="/home/<%=blog._id  %>/reviews/<%= review._id  %>?_method=DELETE" class="mb-3" method="post">
+                    <button class="btn btn-sm btn-dark">Delete</button>
+                  </form>
+                  <% } %>
+            </div>
+            <% } %>
+    </div>
+
+    <% } %>
+     <div class="mt-5">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7893.59315958759!2d76.74395605533567!3d30.72017669306676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fedb5cfffffff%3A0x283a79da0286bea7!2sMcDonald&#39;s!5e0!3m2!1sen!2sjp!4v1707226762819!5m2!1sen!2sjp" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+</div>
+
+

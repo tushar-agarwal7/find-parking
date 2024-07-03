@@ -1,0 +1,28 @@
+<% layout("/layouts/boilerplate") %>
+
+
+<div id="fakePaymentPage" class="d-none">
+    <div class="text-center mt-5">
+        <h2>Processing Payment...</h2>
+        <!-- Loader animation (you can use any loader library or custom CSS animation) -->
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Handle form submission
+        $('#bookingForm').submit(function(event) {
+            event.preventDefault();
+            // Show fake payment page with loader
+            $('#fakePaymentPage').removeClass('d-none');
+            // Simulate redirect to fake payment page after delay (3 seconds in this example)
+            setTimeout(function() {
+                window.location.href = 'fake_payment_page.html'; // Replace with your fake payment page URL
+            }, 3000);
+        });
+    });
+</script>

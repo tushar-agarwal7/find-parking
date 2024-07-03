@@ -1,0 +1,35 @@
+<% layout("/layouts/boilerplate") %>
+
+
+<div class="row mt-5 ">
+    <div class="col-8 offset-2">
+<h3>Create a New Place</h3>
+<form action="/home" method="post" class="needs-validation" novalidate enctype="multipart/form-data" >
+
+    <div class="mb-3 mt-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" placeholder="Add a catchy title" name="blog[title]" class="form-control"
+            required>
+        <div class="valid-feedback">
+            Title Looks good!
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea type="description" placeholder="Enter Description" name="blog[description]" class="form-control"
+                required></textarea>
+            <div class="invalid-feedback">
+                Please Enter a short description
+            </div>
+            <label for="location" class="form-label">Location</label>
+        <input type="text" placeholder="Add location" name="blog[location]" class="form-control"
+            required>
+            <div class="mb-3 mt-3">
+                <label for="image" class="form-label">Upload Image</label>
+                <input type="file"  name="blog[image]" class="form-control"
+                    >
+             
+                <button class="btn btn-primary mt-4">Add </button>
+</form>
+
+</div>
+</div>
