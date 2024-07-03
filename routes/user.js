@@ -20,7 +20,7 @@ router.post("/signup", async (req,res)=>{
     if(err){
         return next(err)
     }
-    req.flash("success","Welcome to BlogBurst");
+    req.flash("success","Welcome to ParkAvenue");
     res.redirect("/home");
    })
     
@@ -35,7 +35,7 @@ router.get("/signin",(req,res)=>{
 })
 
 router.post("/signin", saveRedirectUrl, passport.authenticate('local', { failureRedirect: '/user/signin',failureFlash: true  }), (req,res)=>{
-    req.flash("success","Welcome back to BlogBurst")
+    req.flash("success","Welcome back to ParkAvenue")
     let redirectUrl=res.locals.redirectUrl || "/home"
    res.redirect(redirectUrl);
 
